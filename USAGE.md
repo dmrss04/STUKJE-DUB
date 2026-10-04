@@ -31,8 +31,8 @@ Open it with the **DUB** shortcut on your desktop. Quit with **right-click → Q
 
 ## Installing on another computer
 
-- Run `installer\Output\DUB-Setup.exe`. It installs for your user only (no administrator needed), creates the shortcut, and can turn on Claude usage and start-with-Windows.
-- To rebuild the installer after changing the code, run `installer\build.ps1` (it needs Python with pyinstaller, pillow, pycaw, comtypes and aalink, plus Inno Setup 6).
+- Download `DUB-Setup.exe` from the project's Releases page on GitHub and run it. It installs for your user only (no administrator needed), creates the shortcut, and can turn on Claude usage and start-with-Windows.
+- To build the installer yourself after changing the code, run `installer\build.ps1` (it needs Python with pyinstaller, pillow, pycaw, comtypes and aalink, plus Inno Setup 6).
 - The installer is not signed, so Windows SmartScreen may warn you the first time ("More info" → "Run anyway").
 - To uninstall: Settings → Apps → DUB. It removes the status line the installer added, and your data in `~/.dub/` stays.
 

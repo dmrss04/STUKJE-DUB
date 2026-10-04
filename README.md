@@ -42,7 +42,7 @@ The same menu shows when each window resets.
 
 ### Installer (recommended)
 
-Build `DUB-Setup.exe` (see [Building the installer](#building-the-installer)) and run it. It installs for your user only, with no administrator rights, and lets you choose:
+Download `DUB-Setup.exe` from the [latest release](https://github.com/dmrss04/STUKJE-DUB/releases/latest) and run it. It installs for your user only, with no administrator rights, and lets you choose:
 
 - a desktop shortcut;
 - showing Claude usage (turns on the Claude Code status line);
@@ -83,7 +83,7 @@ Preferences are stored in `~/.dub/`.
 
 ## Building the installer
 
-You need Python with `pyinstaller`, `pillow`, `pycaw`, `comtypes` and `aalink`, plus [Inno Setup 6](https://jrsoftware.org/isinfo.php) (`winget install JRSoftware.InnoSetup`).
+Most people can just download it from the [Releases](https://github.com/dmrss04/STUKJE-DUB/releases) page. To build it yourself, you need Python with `pyinstaller`, `pillow`, `pycaw`, `comtypes` and `aalink`, plus [Inno Setup 6](https://jrsoftware.org/isinfo.php) (`winget install JRSoftware.InnoSetup`).
 
 ```powershell
 .\installer\build.ps1
