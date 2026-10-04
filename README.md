@@ -14,12 +14,13 @@ It is a quiet companion: it never asks for attention, and only shows up when it 
 |---|---|
 | **Work mode** | Sits at its desk with a laptop and types while Claudes are working. One square per Claude shows its state: green when working, grey when free, coral when it needs you. |
 | **Music mode** | Sits on the floor with a walkman and squashes to the beat of whatever is playing on your PC. It closes its eyes when the music heats up. |
+| **Chill mode** | Sits at its desk and just keeps you company, for example while you watch a video. It ignores the audio completely: no dancing, only the calm little animations every now and then (sipping tea, looking around, yawning). Pick it from the right-click menu. |
 | **Alerts** | When a Claude finishes, it gives a thumbs up. When one needs you (a permission prompt, for example), it shows its phone and a speech bubble. |
 | **Claude usage** | Bars with your **5-hour** and **weekly** usage, always in view. It warns you once when either passes **80%**. |
 | **Personalisation** | 15 colours, a cap, cheeks and 4 sizes. The shortcut icon changes with the colour you pick. |
 | **Languages** | English and Portuguese, chosen in the menu (right-click → **Language**). |
 
-Click DUB to switch modes, drag it to move it, and **right-click** for the menu (Claudes, usage, colours, sounds, size, language and quit).
+Click DUB to switch between work and music, drag it to move it, and **right-click** for the menu (Claudes, usage, colours, sounds, size, language and quit).
 
 ## Claude usage
 

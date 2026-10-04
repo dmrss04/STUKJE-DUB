@@ -4,12 +4,13 @@ A calm blob that sits in the corner of your screen and keeps you posted on your 
 
 Open it with the **DUB** shortcut on your desktop. Quit with **right-click → Quit**.
 
-## Modes (click DUB to switch)
+## Modes (click DUB to switch between work and music)
 
 - **Work**: sits at a black desk with a laptop and types with its little hands when Claudes are working.
   - The mushroom lamp turns on by itself at night (between 7 pm and 7 am).
   - The props change every now and then (every 15 to 40 minutes): steaming tea, a vinyl record, a cassette or nothing.
 - **Music**: sits on the floor with a walkman and slowly squashes to the beat. When the music heats up it closes its eyes. On drops it puts a hand to its headphones.
+- **Chill** (pick it in the right-click menu): sits at the desk and just keeps you company, for example while you watch a video. It ignores the audio completely, so it never dances, and it does not type when Claudes are working. It only does the calm little animations every now and then (sipping tea, looking around, yawning, dozing off when you are away). Alerts still work, and the Claude squares are still shown. Clicking DUB in this mode goes back to work mode.
 
 ## Alerts
 

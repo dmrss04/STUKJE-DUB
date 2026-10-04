@@ -58,7 +58,7 @@ LANGS = (("en", "English"), ("pt", "Português"))
 STR = {
     "en": {
         "greet.night": "good night", "greet.morning": "good morning", "greet.afternoon": "good afternoon",
-        "mode.music": "music mode", "mode.work": "work mode",
+        "mode.music": "music mode", "mode.work": "work mode", "mode.chill": "chill mode",
         "wake.click": "huh? I'm awake!", "wake.kick": "I heard a kick!",
         "link.on": "Link on (listening only)", "link.off": "Link off",
         "link.peers": "connected to Ableton Link · {bpm} BPM",
@@ -79,7 +79,7 @@ STR = {
         "usage.none": "(usage: shows up after a Claude's next reply)",
         "usage.menu": "On-screen usage", "usage.off": "Off", "usage.small": "Small bars",
         "usage.big": "Large bars with %",
-        "item.music": "Music mode", "item.work": "Work mode",
+        "item.music": "Music mode", "item.work": "Work mode", "item.chill": "Chill mode (just keeps you company)",
         "item.snd_work": "Sound on alerts (work mode)", "item.snd_music": "Sound on alerts (music mode)",
         "item.link": "Ableton Link (turn it on in Ableton first)",
         "item.color": "Colour", "item.cap": "Cap", "item.blush": "Cheeks",
@@ -94,7 +94,7 @@ STR = {
     },
     "pt": {
         "greet.night": "boa noite", "greet.morning": "bom dia", "greet.afternoon": "boa tarde",
-        "mode.music": "modo música", "mode.work": "modo trabalho",
+        "mode.music": "modo música", "mode.work": "modo trabalho", "mode.chill": "modo companhia",
         "wake.click": "ha? to acordado!", "wake.kick": "ouvi um kick!",
         "link.on": "Link ligado (so a ouvir)", "link.off": "Link desligado",
         "link.peers": "ligado ao Ableton Link · {bpm} BPM",
@@ -115,7 +115,7 @@ STR = {
         "usage.none": "(consumo: aparece depois da próxima resposta de um Claude)",
         "usage.menu": "Consumo no ecrã", "usage.off": "Desligado", "usage.small": "Barras pequenas",
         "usage.big": "Barras grandes com %",
-        "item.music": "Modo musica", "item.work": "Modo trabalho",
+        "item.music": "Modo musica", "item.work": "Modo trabalho", "item.chill": "Modo companhia (so faz companhia)",
         "item.snd_work": "Som nos avisos (modo trabalho)", "item.snd_music": "Som nos avisos (modo musica)",
         "item.link": "Ableton Link (liga primeiro no Ableton)",
         "item.color": "Cor", "item.cap": "Bone", "item.blush": "Bochechas",
@@ -1131,6 +1131,7 @@ class App:
         mv = tk.StringVar(value=self.mode)
         m.add_radiobutton(label=tr("item.music"), variable=mv, value="music", command=lambda: self.set_mode("music"))
         m.add_radiobutton(label=tr("item.work"), variable=mv, value="work", command=lambda: self.set_mode("work"))
+        m.add_radiobutton(label=tr("item.chill"), variable=mv, value="chill", command=lambda: self.set_mode("chill"))
         m.add_separator()
         sw = tk.BooleanVar(value=self.st["snd_work"])
         smu = tk.BooleanVar(value=self.st["snd_music"])
@@ -1239,7 +1240,7 @@ class App:
         pad = 4
         bw, bh = (tw + 2 * pad) * P, (th + 2 * pad - 4) * P
         cx = self.ww // 2
-        bottom = self.sprite_top + (9 if self.mode == "work" else 15) * self.S
+        bottom = self.sprite_top + (15 if self.mode == "music" else 9) * self.S
         x1 = cx - bw // 2
         x1 -= x1 % P
         y2 = bottom
@@ -1494,7 +1495,7 @@ class App:
                 self.set_action(name, secs)
 
     def compute_pose(self, now, m):
-        desk = self.mode == "work"
+        desk = self.mode in ("work", "chill")
         p = base_pose("desk" if desk else "stand")
         music_on = m["active"] and not self.asleep
         hour = time.localtime().tm_hour
@@ -1510,7 +1511,7 @@ class App:
             else:
                 p.update(ho=2, bd=1)
         else:
-            if desk:
+            if self.mode == "work":
                 busy = self.claudes.busy_count()
                 if busy:
                     rate = 4 + 3 * min(busy, 3)
@@ -1571,6 +1572,8 @@ class App:
         try:
             now = time.time()
             m = self.music.snapshot()
+            if self.mode == "chill":          # keeps you company: ignores audio completely
+                m = dict(m, active=False)
             if now - self.last_poll > 1.0:
                 self.last_poll = now
                 global SHORTCUT_CREATED
