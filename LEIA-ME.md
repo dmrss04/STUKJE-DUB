@@ -1,4 +1,4 @@
-# DUB — o Mochi
+# DUB
 
 Um blob que fica calmo no canto do ecrã e te vai dizendo como estão os teus Claudes.
 
