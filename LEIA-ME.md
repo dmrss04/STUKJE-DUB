@@ -1,7 +1,6 @@
 # DUB — o Mochi
 
-Um blob que fica calmo no canto do ecrã. Tem o mesmo comportamento da KIK, mas um design abstrato.
-A KIK original continua intacta em `../KIK`.
+Um blob que fica calmo no canto do ecrã e te vai dizendo como estão os teus Claudes.
 
 Abre com o atalho **DUB** no ambiente de trabalho. Fecha com **botão direito → Sair**.
 
@@ -13,7 +12,7 @@ Abre com o atalho **DUB** no ambiente de trabalho. Fecha com **botão direito �
 
 ## Avisos
 - Quando um Claude termina, faz um polegar para cima e mostra um balão.
-- Quando um Claude precisa de ti, mostra-te o telemóvel. Para isto é preciso o hook opcional da KIK (ver `../KIK/LEIA-ME.md`), que serve as duas apps.
+- Quando um Claude precisa de ti (por exemplo, uma permissão), mostra-te o telemóvel e um balão. Funciona sem configuração extra. Tocar no DUB dispensa o aviso, e o quadrado volta ao normal quando o Claude retoma o trabalho.
 
 ## Consumo do Claude (5h e semanal)
 - Duas barrinhas no canto inferior esquerdo (**5H** e **7D**). Verde até 80%, coral a partir daí e a piscar acima de 95%. Ficam cinzentas se não houver novidades há mais de 1h.

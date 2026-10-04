@@ -98,3 +98,7 @@ O resultado fica em `installer\Output\DUB-Setup.exe`.
 | `installer/` | Script do instalador (Inno Setup), imagens do assistente e `build.ps1`. |
 | `DUB.spec` | Compilação de um único `DUB.exe` portátil com PyInstaller. |
 | `LEIA-ME.md` | Notas de uso mais detalhadas. |
+
+## Licença
+
+[MIT](LICENSE)
