@@ -94,7 +94,7 @@ STR = {
     },
     "pt": {
         "greet.night": "boa noite", "greet.morning": "bom dia", "greet.afternoon": "boa tarde",
-        "mode.music": "modo música", "mode.work": "modo trabalho", "mode.chill": "modo companhia",
+        "mode.music": "modo música", "mode.work": "modo trabalho", "mode.chill": "modo chill",
         "wake.click": "ha? to acordado!", "wake.kick": "ouvi um kick!",
         "link.on": "Link ligado (so a ouvir)", "link.off": "Link desligado",
         "link.peers": "ligado ao Ableton Link · {bpm} BPM",
@@ -115,7 +115,7 @@ STR = {
         "usage.none": "(consumo: aparece depois da próxima resposta de um Claude)",
         "usage.menu": "Consumo no ecrã", "usage.off": "Desligado", "usage.small": "Barras pequenas",
         "usage.big": "Barras grandes com %",
-        "item.music": "Modo musica", "item.work": "Modo trabalho", "item.chill": "Modo companhia (so faz companhia)",
+        "item.music": "Modo musica", "item.work": "Modo trabalho", "item.chill": "Modo chill (so faz companhia)",
         "item.snd_work": "Som nos avisos (modo trabalho)", "item.snd_music": "Som nos avisos (modo musica)",
         "item.link": "Ableton Link (liga primeiro no Ableton)",
         "item.color": "Cor", "item.cap": "Bone", "item.blush": "Bochechas",
