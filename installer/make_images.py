@@ -76,7 +76,7 @@ def sidebar(w, h, k):
     s = 6 * k
     pixel_text(img, "DUB", (w - text_w("DUB", s)) // 2, 34 * k, s, CREAM)
     s2 = 2 * k
-    pixel_text(img, "o Mochi", (w - text_w("o Mochi", s2)) // 2, 34 * k + 7 * s + 10 * k, s2, SOFT)
+    pixel_text(img, "blob calmo", (w - text_w("blob calmo", s2)) // 2, 34 * k + 7 * s + 10 * k, s2, SOFT)
     return img
 
 

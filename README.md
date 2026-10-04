@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/banner.png" alt="DUB, o Mochi, em várias cores" width="100%">
+  <img src="docs/banner.png" alt="DUB em várias cores" width="100%">
 </p>
 
 # DUB
