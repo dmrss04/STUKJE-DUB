@@ -1,4 +1,4 @@
-; Instalador do DUB - o Mochi.  Compilar com build.ps1 (gera installer\Output\DUB-Setup.exe)
+; DUB installer. Build it with build.ps1 (produces installer\Output\DUB-Setup.exe)
 #define AppName "DUB"
 #define AppVersion "1.0.0"
 
@@ -14,7 +14,7 @@ PrivilegesRequired=lowest
 ArchitecturesInstallIn64BitMode=x64compatible
 SetupIconFile=..\dub.ico
 UninstallDisplayIcon={app}\DUB\DUB.exe
-UninstallDisplayName=DUB - o Mochi
+UninstallDisplayName=DUB
 WizardStyle=modern
 WizardImageFile=build\wizard.bmp,build\wizard@2x.bmp
 WizardSmallImageFile=build\wizard_small.bmp,build\wizard_small@2x.bmp
@@ -26,10 +26,12 @@ SolidCompression=yes
 CloseApplications=no
 
 [Languages]
-Name: "portuguese"; MessagesFile: "compiler:Languages\Portuguese.isl"
 Name: "english"; MessagesFile: "compiler:Default.isl"
+Name: "portuguese"; MessagesFile: "compiler:Languages\Portuguese.isl"
 
 [Messages]
+english.WelcomeLabel1=Welcome to DUB
+english.WelcomeLabel2=DUB is a calm blob that sits in the corner of your screen. It sits at its desk while your Claudes work, bobs its head to your music, and lets you know when a Claude finishes or needs you.%n%nIt installs for your user only. No administrator rights needed.
 portuguese.WelcomeLabel1=Bem-vindo ao DUB
 portuguese.WelcomeLabel2=O DUB é um blob calmo que fica no canto do ecrã. Senta-se à secretaria enquanto os teus Claudes trabalham, abana a cabeça ao som da música e avisa-te quando um Claude termina ou precisa de ti.%n%nVai ser instalado só para o teu utilizador. Não precisa de administrador.
 
@@ -38,14 +40,14 @@ portuguese.TaskClaude=Mostrar o consumo do Claude (5h e semanal)
 portuguese.TaskClaudeHint=Liga a status line do Claude Code. Só funciona com subscrição Pro ou Max.
 portuguese.TaskAutostart=Abrir o DUB quando o Windows arranca
 portuguese.GroupExtras=Extras:
-portuguese.ClaudeHasOther=Já tens uma status line configurada no Claude Code, por isso não lhe mexi.%nO consumo do Claude só aparece no DUB se usares a do DUB (ver o LEIA-ME).
+portuguese.ClaudeHasOther=Já tens uma status line configurada no Claude Code, por isso não lhe mexi.%nO consumo do Claude só aparece no DUB se usares a do DUB (ver o USAGE.md).
 portuguese.ClaudeError=Não consegui configurar a status line do Claude Code (o settings.json não é um JSON válido?).%nO DUB funciona na mesma, mas sem o consumo do Claude.
 portuguese.RunDub=Abrir o DUB agora
 english.TaskClaude=Show Claude usage (5h and weekly)
 english.TaskClaudeHint=Turns on the Claude Code status line. Needs a Pro or Max subscription.
 english.TaskAutostart=Start DUB when Windows starts
 english.GroupExtras=Extras:
-english.ClaudeHasOther=You already have a Claude Code status line, so I left it alone.%nClaude usage only shows in DUB if you use DUB's one (see the README).
+english.ClaudeHasOther=You already have a Claude Code status line, so I left it alone.%nClaude usage only shows in DUB if you use DUB's one (see USAGE.md).
 english.ClaudeError=Could not set up the Claude Code status line (is settings.json valid JSON?).%nDUB works anyway, just without Claude usage.
 english.RunDub=Launch DUB now
 
@@ -57,11 +59,11 @@ Name: "autostart"; Description: "{cm:TaskAutostart}"; GroupDescription: "{cm:Gro
 [Files]
 Source: "build\dist\DUB\*"; DestDir: "{app}\DUB"; Flags: recursesubdirs createallsubdirs ignoreversion
 Source: "build\dist\dub-statusline\*"; DestDir: "{app}\statusline"; Flags: recursesubdirs createallsubdirs ignoreversion
-Source: "..\LEIA-ME.md"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\USAGE.md"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
-Name: "{autoprograms}\DUB"; Filename: "{app}\DUB\DUB.exe"; WorkingDir: "{app}\DUB"; Comment: "DUB - o Mochi"
-Name: "{autodesktop}\DUB"; Filename: "{app}\DUB\DUB.exe"; WorkingDir: "{app}\DUB"; Comment: "DUB - o Mochi"; Tasks: desktopicon
+Name: "{autoprograms}\DUB"; Filename: "{app}\DUB\DUB.exe"; WorkingDir: "{app}\DUB"; Comment: "DUB"
+Name: "{autodesktop}\DUB"; Filename: "{app}\DUB\DUB.exe"; WorkingDir: "{app}\DUB"; Comment: "DUB"; Tasks: desktopicon
 
 [Registry]
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "DUB"; \
@@ -83,7 +85,7 @@ end;
 
 function PrepareToInstall(var NeedsRestart: Boolean): String;
 begin
-  StopDub;                 // ao atualizar, o DUB antigo pode estar aberto
+  StopDub;                 // when updating, the old DUB may still be running
   Result := '';
 end;
 

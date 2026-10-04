@@ -1,4 +1,4 @@
-"""Gera as imagens do assistente de instalacao com o proprio Mochi (usa o sprite do dub.py)."""
+"""Generates the installer wizard images from DUB's own sprite (uses dub.py)."""
 import importlib.util
 import os
 import sys
@@ -8,13 +8,13 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 HERE = Path(__file__).resolve().parent
-os.environ.setdefault("DUB_HOME", tempfile.mkdtemp(prefix="dub_img_"))   # nao mexe em ~/.dub
+os.environ.setdefault("DUB_HOME", tempfile.mkdtemp(prefix="dub_img_"))   # does not touch ~/.dub
 
 spec = importlib.util.spec_from_file_location("dub", HERE.parent / "dub.py")
 dub = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(dub)
 
-TOP, BOTTOM = (0x3a, 0x3c, 0x45), (0x22, 0x23, 0x28)       # tons da secretaria do DUB
+TOP, BOTTOM = (0x3a, 0x3c, 0x45), (0x22, 0x23, 0x28)       # DUB's desk colours
 CREAM, SOFT = (0xf1, 0xeb, 0xe1), (0x9a, 0x97, 0xa6)
 
 
@@ -63,9 +63,9 @@ def shadow(img, cx, y, w, h):
 
 
 def sidebar(w, h, k):
-    """Imagem grande da esquerda (k = 1 ou 2 conforme o DPI)."""
+    """Large image on the left (k = 1 or 2 depending on DPI)."""
     img = gradient(w, h)
-    # estrelinhas em pixel, discretas
+    # subtle pixel stars
     d = ImageDraw.Draw(img)
     for sx, sy in ((24, 30), (130, 52), (60, 84), (112, 118), (30, 150), (140, 178), (18, 226), (122, 250)):
         d.rectangle([sx * k, sy * k, sx * k + k, sy * k + k], fill=(0x5c, 0x5e, 0x6a))
@@ -76,12 +76,12 @@ def sidebar(w, h, k):
     s = 6 * k
     pixel_text(img, "DUB", (w - text_w("DUB", s)) // 2, 34 * k, s, CREAM)
     s2 = 2 * k
-    pixel_text(img, "blob calmo", (w - text_w("blob calmo", s2)) // 2, 34 * k + 7 * s + 10 * k, s2, SOFT)
+    pixel_text(img, "calm blob", (w - text_w("calm blob", s2)) // 2, 34 * k + 7 * s + 10 * k, s2, SOFT)
     return img
 
 
 def small(w, h, k):
-    """Imagem pequena do canto superior direito."""
+    """Small image in the top-right corner."""
     img = Image.new("RGB", (w, h), TOP)
     img = gradient(w, h)
     draw_sprite(img, mochi(), 1 * k + (k > 1), w // 2, h - 4 * k)
@@ -98,4 +98,4 @@ if __name__ == "__main__":
     save(sidebar(328, 628, 2), "wizard@2x.bmp")
     save(small(55, 58, 1), "wizard_small.bmp")
     save(small(110, 116, 2), "wizard_small@2x.bmp")
-    print("imagens ok")
+    print("images ok")

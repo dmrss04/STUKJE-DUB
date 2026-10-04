@@ -1,10 +1,10 @@
-"""Status line do Claude Code que tambem guarda os consumos para o DUB.
+"""Claude Code status line that also saves your usage for DUB.
 
-O Claude Code passa um JSON pelo stdin a cada atualizacao. Daqui so se usa
-rate_limits (janela de 5h e semanal) e grava-se em ~/.dub/usage.json, que o DUB le.
-Nao faz pedidos a lado nenhum e nao toca em credenciais.
+Claude Code pipes a JSON document to stdin on every update. Only rate_limits
+(5-hour and weekly windows) is used here: it is written to ~/.dub/usage.json,
+which DUB reads. It makes no requests and never touches credentials.
 
-settings.json:  "statusLine": {"type": "command", "command": "python \"<caminho>/dub_statusline.py\""}
+settings.json:  "statusLine": {"type": "command", "command": "python \"<path>/dub_statusline.py\""}
 """
 import json
 import os
@@ -30,7 +30,7 @@ def save(rate):
     DATA.mkdir(exist_ok=True)
     tmp = DATA / f"usage.{os.getpid()}.tmp"
     tmp.write_text(json.dumps(old), encoding="utf-8")
-    for _ in range(3):              # o DUB pode estar a ler nesse instante
+    for _ in range(3):              # DUB may be reading at that moment
         try:
             os.replace(tmp, USAGE)
             return
@@ -81,14 +81,14 @@ def ours(cmd):
 
 
 def our_command():
-    if getattr(sys, "frozen", False):          # dub-statusline.exe instalado
+    if getattr(sys, "frozen", False):          # installed dub-statusline.exe
         return f'"{sys.executable}"'
     return f'"{sys.executable}" "{Path(__file__).resolve()}"'
 
 
 def edit_settings(install):
-    """--install liga a status line no settings.json do Claude Code; --uninstall tira-a.
-    Nunca mexe numa status line que nao seja esta. Saida: 0 ok, 2 ja existe outra, 3 erro."""
+    """--install turns the status line on in Claude Code's settings.json; --uninstall removes it.
+    Never touches a status line that is not this one. Exit: 0 ok, 2 another one exists, 3 error."""
     try:
         if SETTINGS.exists():
             d = json.loads(SETTINGS.read_text(encoding="utf-8"))
@@ -99,13 +99,13 @@ def edit_settings(install):
         cur = (d.get("statusLine") or {}).get("command")
         if install:
             if cur and not ours(cur):
-                print("Ja tens uma status line configurada; nao lhe mexi.")
+                print("You already have a status line configured; left it alone.")
                 return 2
             if cur == our_command():
                 return 0
             d["statusLine"] = {"type": "command", "command": our_command()}
         else:
-            if cur != our_command():       # so tira a status line desta instalacao, nunca outra do DUB
+            if cur != our_command():       # only removes this installation's status line, never another DUB one
                 return 0
             del d["statusLine"]
         if SETTINGS.exists():
@@ -118,7 +118,7 @@ def edit_settings(install):
         os.replace(tmp, SETTINGS)
         return 0
     except Exception as e:
-        print(f"Erro: {e}")
+        print(f"Error: {e}")
         return 3
 
 

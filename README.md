@@ -1,104 +1,106 @@
 <p align="center">
-  <img src="docs/banner.png" alt="DUB em várias cores" width="100%">
+  <img src="docs/banner.png" alt="DUB in several colours" width="100%">
 </p>
 
 # DUB
 
-**DUB é um blob calmo que vive no canto do ecrã do Windows.** Enquanto trabalhas, diz-te o que os teus [Claude Code](https://claude.com/claude-code) estão a fazer. Quando ouves música, abana a cabeça ao ritmo.
+**DUB is a calm blob that lives in the corner of your Windows screen.** While you work, it tells you what your [Claude Code](https://claude.com/claude-code) sessions are up to. When you listen to music, it bobs its head to the beat.
 
-É um companheiro discreto: não pede atenção, só aparece quando tem algo útil para te dizer.
+It is a quiet companion: it never asks for attention, and only shows up when it has something useful to tell you.
 
-## O que faz
+> **Note:** the app's own interface (right-click menu and speech bubbles) is currently in Portuguese. The installer comes in English and Portuguese.
+
+## What it does
 
 | | |
 |---|---|
-| **Modo trabalho** | Senta-se à secretaria com o portátil e escreve quando há Claudes a trabalhar. Um quadrado por cada Claude mostra o estado: verde a trabalhar, cinzento livre, coral a precisar de ti. |
-| **Modo música** | Senta-se no chão com um walkman e achata-se ao beat do que estiver a tocar no PC. Fecha os olhos quando a música aquece. |
-| **Avisos** | Quando um Claude termina, faz um polegar para cima. Quando precisa de ti (uma permissão, por exemplo), mostra o telemóvel e um balão. |
-| **Consumo do Claude** | Barras com o consumo da janela de **5 horas** e da **semana**, sempre à vista. Avisa uma vez quando passam dos **80%**. |
-| **Personalização** | 15 cores, boné, bochechas e 4 tamanhos. O ícone do atalho muda com a cor que escolheres. |
+| **Work mode** | Sits at its desk with a laptop and types while Claudes are working. One square per Claude shows its state: green when working, grey when free, coral when it needs you. |
+| **Music mode** | Sits on the floor with a walkman and squashes to the beat of whatever is playing on your PC. It closes its eyes when the music heats up. |
+| **Alerts** | When a Claude finishes, it gives a thumbs up. When one needs you (a permission prompt, for example), it shows its phone and a speech bubble. |
+| **Claude usage** | Bars with your **5-hour** and **weekly** usage, always in view. It warns you once when either passes **80%**. |
+| **Personalisation** | 15 colours, a cap, cheeks and 4 sizes. The shortcut icon changes with the colour you pick. |
 
-Clica no DUB para trocar de modo, arrasta-o para mudar de sítio e usa o **botão direito** para o menu (Claudes, consumo, cores, sons, tamanho e sair).
+Click DUB to switch modes, drag it to move it, and **right-click** for the menu (Claudes, usage, colours, sounds, size and quit).
 
-## Consumo do Claude
+## Claude usage
 
-O DUB mostra duas barras, **5H** e **7D**, que ficam verdes até aos 80%, passam a coral a partir daí e piscam acima dos 95%. No menu (botão direito → **Consumo no ecrã**) escolhes entre:
+DUB shows two bars, **5H** and **7D**. They stay green up to 80%, turn coral from there, and blink above 95%. In the menu (right-click → **Consumo no ecrã**) you choose between:
 
-- **Barras pequenas**: discretas, no canto.
-- **Barras grandes com %**: com a percentagem escrita.
-- **Desligado**.
+- **Small bars**: discreet, in the corner.
+- **Large bars with %**: with the percentage written out.
+- **Off**.
 
-No mesmo menu vês a hora a que cada janela faz reset.
+The same menu shows when each window resets.
 
-**Como funciona:** o Claude Code envia os limites de consumo à *status line*. O pequeno programa `dub_statusline` guarda esses valores em `~/.dub/usage.json` e o DUB só lê esse ficheiro. Não há contas, tokens nem pedidos à internet.
+**How it works:** Claude Code sends your usage limits to its *status line*. The small `dub_statusline` program saves those values to `~/.dub/usage.json`, and DUB only reads that file. There are no accounts, tokens or internet requests.
 
-**Limites a conhecer:**
-- Só existe para subscrições Claude **Pro** e **Max**.
-- Atualiza-se enquanto tiveres um Claude aberto, depois da primeira resposta da sessão. Se os dados tiverem mais de 1 hora, as barras ficam cinzentas.
+**Good to know:**
+- It is only available on Claude **Pro** and **Max** subscriptions.
+- It updates while a Claude is open, after the session's first response. If the data is more than an hour old, the bars turn grey.
 
-## Instalação
+## Installation
 
-### Instalador (recomendado)
+### Installer (recommended)
 
-Gera o `DUB-Setup.exe` (ver [Compilar o instalador](#compilar-o-instalador)) e corre-o. Instala só para o teu utilizador, sem precisar de administrador, e deixa escolher:
+Build `DUB-Setup.exe` (see [Building the installer](#building-the-installer)) and run it. It installs for your user only, with no administrator rights, and lets you choose:
 
-- atalho no ambiente de trabalho;
-- mostrar o consumo do Claude (liga a status line do Claude Code);
-- abrir o DUB quando o Windows arranca.
+- a desktop shortcut;
+- showing Claude usage (turns on the Claude Code status line);
+- starting DUB when Windows starts.
 
-Se já tiveres uma status line no Claude Code, o instalador não lhe toca e avisa. Para desinstalar, usa **Definições → Aplicações → DUB**.
+If you already have a Claude Code status line, the installer leaves it alone and tells you. To uninstall, use **Settings → Apps → DUB**.
 
-> O instalador não está assinado, por isso o Windows SmartScreen pode avisar na primeira vez. Escolhe **Mais informações → Executar mesmo assim**.
+> The installer is not signed, so Windows SmartScreen may warn you the first time. Choose **More info → Run anyway**.
 
-### A partir do código
+### From source
 
-Precisas de Windows 10 ou 11 e Python 3.12 ou superior.
+You need Windows 10 or 11 and Python 3.12 or later.
 
 ```powershell
 pip install pycaw comtypes aalink
 python dub.py
 ```
 
-Para ver o consumo do Claude a partir do código, acrescenta isto ao `~/.claude/settings.json` (ajusta o caminho):
+To see Claude usage when running from source, add this to `~/.claude/settings.json` (adjust the path):
 
 ```json
 "statusLine": {
   "type": "command",
-  "command": "python \"C:\\caminho\\para\\dub_statusline.py\""
+  "command": "python \"C:\\path\\to\\dub_statusline.py\""
 }
 ```
 
-## Privacidade
+## Privacy
 
-Tudo é local e só de leitura. O DUB não envia nada para a internet.
+Everything is local and read-only. DUB sends nothing to the internet.
 
-- **Áudio:** lê apenas o medidor de volume do Windows. Não grava nem interceta som.
-- **Claudes:** lê apenas `~/.claude/sessions/*.json`, o estado que o Claude Code já escreve.
-- **Consumo:** lê apenas `~/.dub/usage.json`.
-- **Ableton Link:** desligado por defeito, opcional no menu.
+- **Audio:** it only reads the Windows volume meter. It does not record or intercept sound.
+- **Claudes:** it only reads `~/.claude/sessions/*.json`, the state Claude Code already writes.
+- **Usage:** it only reads `~/.dub/usage.json`.
+- **Ableton Link:** off by default, optional in the menu.
 
-As preferências ficam em `~/.dub/`.
+Preferences are stored in `~/.dub/`.
 
-## Compilar o instalador
+## Building the installer
 
-Precisas de Python com `pyinstaller`, `pillow`, `pycaw`, `comtypes` e `aalink`, e do [Inno Setup 6](https://jrsoftware.org/isinfo.php) (`winget install JRSoftware.InnoSetup`).
+You need Python with `pyinstaller`, `pillow`, `pycaw`, `comtypes` and `aalink`, plus [Inno Setup 6](https://jrsoftware.org/isinfo.php) (`winget install JRSoftware.InnoSetup`).
 
 ```powershell
 .\installer\build.ps1
 ```
 
-O resultado fica em `installer\Output\DUB-Setup.exe`.
+The result is `installer\Output\DUB-Setup.exe`.
 
-## Estrutura
+## Project layout
 
-| Ficheiro | Para que serve |
+| File | What it is for |
 |---|---|
-| `dub.py` | A aplicação: sprite em pixel art, modos, avisos e menu. |
-| `dub_statusline.py` | Status line do Claude Code que guarda o consumo para o DUB. |
-| `installer/` | Script do instalador (Inno Setup), imagens do assistente e `build.ps1`. |
-| `DUB.spec` | Compilação de um único `DUB.exe` portátil com PyInstaller. |
-| `LEIA-ME.md` | Notas de uso mais detalhadas. |
+| `dub.py` | The app: pixel-art sprite, modes, alerts and menu. |
+| `dub_statusline.py` | Claude Code status line that saves usage for DUB. |
+| `installer/` | Installer script (Inno Setup), wizard images and `build.ps1`. |
+| `DUB.spec` | Builds a single portable `DUB.exe` with PyInstaller. |
+| `USAGE.md` | More detailed usage notes. |
 
-## Licença
+## License
 
 [MIT](LICENSE)

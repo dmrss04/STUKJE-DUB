@@ -1,5 +1,5 @@
-# Compila o DUB e gera o instalador: installer\Output\DUB-Setup.exe
-# Precisa de: Python com pyinstaller, pillow, pycaw, comtypes, aalink  +  Inno Setup 6
+# Builds DUB and produces the installer: installer\Output\DUB-Setup.exe
+# Needs: Python with pyinstaller, pillow, pycaw, comtypes, aalink  +  Inno Setup 6
 $ErrorActionPreference = "Stop"
 $here = $PSScriptRoot
 $app = Split-Path $here -Parent
@@ -7,15 +7,15 @@ $py = (Get-Command python -ErrorAction SilentlyContinue).Source
 if ($env:DUB_PYTHON) { $py = $env:DUB_PYTHON }
 $iscc = @("$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe", "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe",
           "$env:ProgramFiles\Inno Setup 6\ISCC.exe") | Where-Object { Test-Path $_ } | Select-Object -First 1
-if (-not $py) { throw "Nao encontrei o Python (define DUB_PYTHON)." }
-if (-not $iscc) { throw "Nao encontrei o Inno Setup 6 (winget install JRSoftware.InnoSetup)." }
+if (-not $py) { throw "Python not found (set DUB_PYTHON)." }
+if (-not $iscc) { throw "Inno Setup 6 not found (winget install JRSoftware.InnoSetup)." }
 
 $build = Join-Path $here "build"
 Remove-Item (Join-Path $build "dist"), (Join-Path $build "work"), (Join-Path $build "spec") -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force $build | Out-Null
 
-Write-Host "== imagens"
-& $py (Join-Path $here "make_images.py"); if ($LASTEXITCODE) { throw "imagens" }
+Write-Host "== images"
+& $py (Join-Path $here "make_images.py"); if ($LASTEXITCODE) { throw "images" }
 
 $ico = Join-Path $app "dub.ico"
 $dist = Join-Path $build "dist"; $work = Join-Path $build "work"; $specs = Join-Path $build "spec"
@@ -32,6 +32,6 @@ try {
     if ($LASTEXITCODE) { throw "pyinstaller statusline" }
 } finally { Pop-Location }
 
-Write-Host "== instalador"
+Write-Host "== installer"
 & $iscc (Join-Path $here "DUB.iss"); if ($LASTEXITCODE) { throw "inno setup" }
-Write-Host "`nPronto: $here\Output\DUB-Setup.exe"
+Write-Host "`nDone: $here\Output\DUB-Setup.exe"

@@ -1,16 +1,15 @@
-"""DUB - o Mochi, um blob lofi que vive no canto do teu ecra.
-(Irmao da KIK: mesmo comportamento, design abstrato e calmo, secretaria preta.)
+"""DUB - a calm lofi blob that lives in the corner of your screen.
 
-Modo musica: abana a cabeca ao som do que esta a tocar no PC.
-Modo trabalho: senta-se ao portatil e vai-te dizendo como estao os teus Claudes.
+Music mode: bobs its head to whatever is playing on the PC.
+Work mode: sits at its laptop and keeps you posted on how your Claudes are doing.
 
-Tudo passivo e so de leitura:
-  - audio: le apenas o medidor de volume do Windows (nao grava, nao interceta nada)
-  - Claude: le apenas ~/.claude/sessions/*.json (estado que o Claude Code ja escreve)
-  - consumo (5h e semanal): le ~/.dub/usage.json, escrito pela status line (dub_statusline.py)
-  - Ableton Link: desligado por defeito (opcional no menu)
+Everything is passive and read-only:
+  - audio: only reads the Windows volume meter (does not record or intercept anything)
+  - Claude: only reads ~/.claude/sessions/*.json (state Claude Code already writes)
+  - usage (5-hour and weekly): reads ~/.dub/usage.json, written by the status line (dub_statusline.py)
+  - Ableton Link: off by default (optional in the menu)
 
-Abrir:  pythonw dub.py      Fechar: botao direito > Sair
+Run:  pythonw dub.py      Quit: right-click > Sair
 """
 import ctypes
 import json
