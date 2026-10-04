@@ -22,7 +22,7 @@ Abre com o atalho **DUB** no ambiente de trabalho. Fecha com **botão direito �
 - Aos **80%** o DUB mostra um balão, uma vez por janela (a das 5h e a semanal avisam em separado).
 - Os dados vêm da status line do Claude Code: `dub_statusline.py` guarda os valores em `~/.dub/usage.json` e o DUB só lê esse ficheiro. Para ativar, põe isto no `~/.claude/settings.json`:
   ```json
-  "statusLine": { "type": "command", "command": "python \"C:\\Users\\diogo\\Documents\\STUKJE\\STUKJE COMPANY\\DUB\\dub_statusline.py\"" }
+  "statusLine": { "type": "command", "command": "python \"C:\\caminho\\para\\dub_statusline.py\"" }
   ```
 - Só se atualiza com um Claude aberto e depois da primeira resposta da sessão. Só existe para subscrições Pro e Max.
 
