@@ -9,7 +9,7 @@ Everything is passive and read-only:
   - usage (5-hour and weekly): reads ~/.dub/usage.json, written by the status line (dub_statusline.py)
   - Ableton Link: off by default (optional in the menu)
 
-Run:  pythonw dub.py      Quit: right-click > Sair
+Run:  pythonw dub.py      Quit: right-click > Quit
 """
 import ctypes
 import json
@@ -45,6 +45,98 @@ def log(msg):
             f.write(time.strftime("%Y-%m-%d %H:%M:%S ") + str(msg) + "\n")
     except Exception:
         pass
+
+
+
+# --------------------------------------------------------------------------
+# Languages (English / Portuguese). English by default; the person picks one in
+# the menu (Language), regardless of the Windows display language.
+# --------------------------------------------------------------------------
+_LANG = ["en"]
+LANGS = (("en", "English"), ("pt", "Português"))
+
+STR = {
+    "en": {
+        "greet.night": "good night", "greet.morning": "good morning", "greet.afternoon": "good afternoon",
+        "mode.music": "music mode", "mode.work": "work mode",
+        "wake.click": "huh? I'm awake!", "wake.kick": "I heard a kick!",
+        "link.on": "Link on (listening only)", "link.off": "Link off",
+        "link.peers": "connected to Ableton Link · {bpm} BPM",
+        "shortcut": "I created a desktop shortcut",
+        "done": ("{n} finished", "{n} is ready"),
+        "need": ("{n} needs you", "{n} is waiting for your permission"),
+        "still": "{n} is still waiting for you",
+        "warn.five_hour": "you've used {pct}% of your 5-hour limit · resets {when}",
+        "warn.seven_day": "you've used {pct}% of your weekly limit · resets {when}",
+        "menu.header": "DUB  ·  {hours:.1f}h of music together  ·  energy {energy}%",
+        "menu.needs": "!  {name}  -  needs you",
+        "menu.busy": "●  {name}  -  working ({mins} min)",
+        "menu.idle": "○  {name}  -  free",
+        "menu.noclaude": "(no active Claude)",
+        "usage.w.five_hour": "5h", "usage.w.seven_day": "week",
+        "usage.line": "Usage {label}:  {pct}%  {bar}",
+        "usage.reset": "  ·  resets {when}", "usage.old": "  ·  {h}h ago",
+        "usage.none": "(usage: shows up after a Claude's next reply)",
+        "usage.menu": "On-screen usage", "usage.off": "Off", "usage.small": "Small bars",
+        "usage.big": "Large bars with %",
+        "item.music": "Music mode", "item.work": "Work mode",
+        "item.snd_work": "Sound on alerts (work mode)", "item.snd_music": "Sound on alerts (music mode)",
+        "item.link": "Ableton Link (turn it on in Ableton first)",
+        "item.color": "Colour", "item.cap": "Cap", "item.blush": "Cheeks",
+        "item.hud": "Show Claude squares", "item.size": "Size", "item.lang": "Language", "item.quit": "Quit",
+        "size.3": "Small", "size.4": "Medium", "size.5": "Large", "size.6": "Huge",
+        "days": ("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"),
+        "theme.mochi": "Mochi (cream)", "theme.matcha": "Matcha", "theme.hojicha": "Hojicha (sand)",
+        "theme.ube": "Ube (lavender)", "theme.nevoa": "Névoa (blue-grey)", "theme.sesamo": "Black sesame",
+        "theme.sakura": "Sakura (pale pink)", "theme.momo": "Momo (peach)", "theme.yuzu": "Yuzu (soft yellow)",
+        "theme.kinako": "Kinako (golden)", "theme.menta": "Mint", "theme.sora": "Sora (sky blue)",
+        "theme.azuki": "Azuki (red bean)", "theme.cafe": "Coffee (mocha)", "theme.sumi": "Sumi (ink, amber eyes)",
+    },
+    "pt": {
+        "greet.night": "boa noite", "greet.morning": "bom dia", "greet.afternoon": "boa tarde",
+        "mode.music": "modo música", "mode.work": "modo trabalho",
+        "wake.click": "ha? to acordado!", "wake.kick": "ouvi um kick!",
+        "link.on": "Link ligado (so a ouvir)", "link.off": "Link desligado",
+        "link.peers": "ligado ao Ableton Link · {bpm} BPM",
+        "shortcut": "criei um atalho no ambiente de trabalho",
+        "done": ("{n} terminou", "{n} está pronto"),
+        "need": ("{n} precisa de ti", "{n} está à espera da tua permissão"),
+        "still": "{n} continua à tua espera",
+        "warn.five_hour": "já usaste {pct}% das 5 horas · reset {when}",
+        "warn.seven_day": "já usaste {pct}% da semana · reset {when}",
+        "menu.header": "DUB  ·  {hours:.1f}h de música juntos  ·  energia {energy}%",
+        "menu.needs": "!  {name}  -  precisa de ti",
+        "menu.busy": "●  {name}  -  a trabalhar ({mins} min)",
+        "menu.idle": "○  {name}  -  livre",
+        "menu.noclaude": "(nenhum Claude ativo)",
+        "usage.w.five_hour": "5h", "usage.w.seven_day": "semana",
+        "usage.line": "Consumo {label}:  {pct}%  {bar}",
+        "usage.reset": "  ·  reset {when}", "usage.old": "  ·  há {h}h",
+        "usage.none": "(consumo: aparece depois da próxima resposta de um Claude)",
+        "usage.menu": "Consumo no ecrã", "usage.off": "Desligado", "usage.small": "Barras pequenas",
+        "usage.big": "Barras grandes com %",
+        "item.music": "Modo musica", "item.work": "Modo trabalho",
+        "item.snd_work": "Som nos avisos (modo trabalho)", "item.snd_music": "Som nos avisos (modo musica)",
+        "item.link": "Ableton Link (liga primeiro no Ableton)",
+        "item.color": "Cor", "item.cap": "Bone", "item.blush": "Bochechas",
+        "item.hud": "Mostrar quadrados dos Claudes", "item.size": "Tamanho", "item.lang": "Idioma",
+        "item.quit": "Sair",
+        "size.3": "Pequeno", "size.4": "Medio", "size.5": "Grande", "size.6": "Enorme",
+        "days": ("seg", "ter", "qua", "qui", "sex", "sáb", "dom"),
+        "theme.mochi": "Mochi (creme)", "theme.matcha": "Matcha", "theme.hojicha": "Hojicha (areia)",
+        "theme.ube": "Ube (lavanda)", "theme.nevoa": "Nevoa (cinza-azul)", "theme.sesamo": "Sesamo preto",
+        "theme.sakura": "Sakura (rosa palido)", "theme.momo": "Momo (pessego)", "theme.yuzu": "Yuzu (amarelo suave)",
+        "theme.kinako": "Kinako (dourado)", "theme.menta": "Menta", "theme.sora": "Sora (azul ceu)",
+        "theme.azuki": "Azuki (vermelho feijao)", "theme.cafe": "Cafe (mocha)", "theme.sumi": "Sumi (tinta, olhos ambar)",
+    },
+}
+
+
+def tr(key, **kw):
+    v = STR.get(_LANG[0], STR["en"]).get(key)
+    if v is None:
+        v = STR["en"][key]
+    return v.format(**kw) if kw and isinstance(v, str) else v
 
 
 # --------------------------------------------------------------------------
@@ -670,11 +762,8 @@ class Claudes:
 # --------------------------------------------------------------------------
 # Consumo do Claude (so leitura, vem da status line)
 # --------------------------------------------------------------------------
-DIAS = ["seg", "ter", "qua", "qui", "sex", "sáb", "dom"]
-
-
 class Usage:
-    WINDOWS = (("five_hour", "5h"), ("seven_day", "semana"))
+    WINDOWS = ("five_hour", "seven_day")
     WARN = 80
     STALE = 3600     # mais de 1h sem novidades: pode estar desatualizado
 
@@ -715,7 +804,7 @@ class Usage:
     def when(key, reset):
         t = time.localtime(reset)
         hm = time.strftime("%H:%M", t)
-        return hm if key == "five_hour" else f"{DIAS[t.tm_wday]} {hm}"
+        return hm if key == "five_hour" else f"{tr('days')[t.tm_wday]} {hm}"
 
 
 # --------------------------------------------------------------------------
@@ -832,8 +921,6 @@ def wrap_pixel(text, max_units):
 # --------------------------------------------------------------------------
 PROPS = ["tea", "tea", "vinyl", "tape", "none"]
 
-DONE_MSGS = ["{n} terminou", "{n} está pronto"]
-NEED_MSGS = ["{n} precisa de ti", "{n} está à espera da tua permissão"]
 
 
 class App:
@@ -846,6 +933,7 @@ class App:
         self.root.config(bg=KEY)
 
         self.st = self.load_state()
+        _LANG[0] = self.st["lang"] if self.st["lang"] in STR else "en"
         self.mode = self.st["mode"]
         self.S = self.st["scale"]
         self.music = Music()
@@ -887,7 +975,7 @@ class App:
         self.root.protocol("WM_DELETE_WINDOW", self.quit)
 
         h = time.localtime().tm_hour
-        self.say("boa noite" if h >= 20 or h < 6 else "bom dia" if h < 12 else "boa tarde", 3)
+        self.say(tr("greet.night") if h >= 20 or h < 6 else tr("greet.morning") if h < 12 else tr("greet.afternoon"), 3)
         self.refresh_icon()
         self.root.after(33, self.tick)
 
@@ -896,7 +984,7 @@ class App:
         st = dict(mode="work", scale=5, x=None, y=None, energy=80.0, music_seconds=0.0,
                   saved_at=time.time(), snd_work=True, snd_music=False, link=False,
                   theme="mochi", cap=False, blush=True, hud=True,
-                  usage_mode="small", usage_warned={})   # usage_warned: janela -> reset ja avisado
+                  usage_mode="small", lang="en", usage_warned={})   # usage_warned: janela -> reset ja avisado
         saved = {}
         try:
             saved = json.loads(STATE.read_text(encoding="utf-8"))
@@ -905,6 +993,8 @@ class App:
             pass
         if st.pop("usage_hud", True) is False and "usage_mode" not in saved:
             st["usage_mode"] = "off"
+        if saved and "lang" not in saved:
+            st["lang"] = "pt"      # earlier versions were Portuguese-only: keep them as they were
         away = max(0.0, time.time() - st["saved_at"])
         st["energy"] = min(100.0, st["energy"] + away / 30.0)   # dormiu enquanto estava fechado
         return st
@@ -976,7 +1066,7 @@ class App:
             return
         self.last_activity = time.time()
         if self.asleep:
-            self.wake("ha? to acordado!")
+            self.wake(tr("wake.click"))
             return
         needing = [s for s in self.claudes.needing() if not s["dismissed"]]
         if needing or self.bubble:
@@ -992,85 +1082,89 @@ class App:
 
     def set_mode(self, mode):
         self.mode = mode
-        self.say("modo música" if mode == "music" else "modo trabalho", 2)
+        self.say(tr("mode." + mode), 2)
         self.save_state()
 
     def on_menu(self, e):
         m = tk.Menu(self.root, tearoff=0)
         hours = self.st["music_seconds"] / 3600
-        m.add_command(label=f"DUB  ·  {hours:.1f}h de música juntos  ·  energia {int(self.st['energy'])}%",
-                      state="disabled")
+        m.add_command(label=tr("menu.header", hours=hours, energy=int(self.st["energy"])), state="disabled")
         m.add_separator()
         if self.claudes.sessions:
             for s in sorted(self.claudes.sessions.values(), key=lambda s: s["name"].lower()):
                 mins = int((time.time() - s["since"]) / 60)
                 if s["needs"]:
-                    txt = f"!  {s['name']}  -  precisa de ti"
+                    txt = tr("menu.needs", name=s["name"])
                 elif s["status"] == "busy":
-                    txt = f"●  {s['name']}  -  a trabalhar ({mins} min)"
+                    txt = tr("menu.busy", name=s["name"], mins=mins)
                 else:
-                    txt = f"○  {s['name']}  -  livre"
+                    txt = tr("menu.idle", name=s["name"])
                 m.add_command(label=txt, state="disabled")
         else:
-            m.add_command(label="(nenhum Claude ativo)", state="disabled")
+            m.add_command(label=tr("menu.noclaude"), state="disabled")
         m.add_separator()
         now = time.time()
-        rows = [(label, key, self.usage.get(key, now)) for key, label in Usage.WINDOWS]
+        rows = [(tr("usage.w." + key), key, self.usage.get(key, now)) for key in Usage.WINDOWS]
         if any(g for _, _, g in rows):
             old = ""
             if self.usage.stale(now):
-                old = f"  ·  há {int((now - self.usage.ts) / 3600)}h"
+                old = tr("usage.old", h=int((now - self.usage.ts) / 3600))
             for label, key, g in rows:
                 if not g:
                     continue
                 pct, reset = g
                 n = Usage.segments(pct)
                 bar = "▓" * n + "░" * (10 - n)
-                txt = f"Consumo {label}:  {pct:.0f}%  {bar}"
+                txt = tr("usage.line", label=label, pct=f"{pct:.0f}", bar=bar)
                 if reset:
-                    txt += f"  ·  reset {Usage.when(key, reset)}"
+                    txt += tr("usage.reset", when=Usage.when(key, reset))
                 m.add_command(label=txt + old, state="disabled")
         else:
-            m.add_command(label="(consumo: aparece depois da próxima resposta de um Claude)", state="disabled")
+            m.add_command(label=tr("usage.none"), state="disabled")
         um = tk.Menu(m, tearoff=0)
         uvar = tk.StringVar(value=self.st["usage_mode"])
-        for val, label in (("off", "Desligado"), ("small", "Barras pequenas"), ("big", "Barras grandes com %")):
+        for val, label in (("off", tr("usage.off")), ("small", tr("usage.small")), ("big", tr("usage.big"))):
             um.add_radiobutton(label=label, variable=uvar, value=val,
                                command=lambda v=val: self.set_usage_mode(v))
-        m.add_cascade(label="Consumo no ecrã", menu=um)
+        m.add_cascade(label=tr("usage.menu"), menu=um)
         m.add_separator()
         mv = tk.StringVar(value=self.mode)
-        m.add_radiobutton(label="Modo musica", variable=mv, value="music", command=lambda: self.set_mode("music"))
-        m.add_radiobutton(label="Modo trabalho", variable=mv, value="work", command=lambda: self.set_mode("work"))
+        m.add_radiobutton(label=tr("item.music"), variable=mv, value="music", command=lambda: self.set_mode("music"))
+        m.add_radiobutton(label=tr("item.work"), variable=mv, value="work", command=lambda: self.set_mode("work"))
         m.add_separator()
         sw = tk.BooleanVar(value=self.st["snd_work"])
         smu = tk.BooleanVar(value=self.st["snd_music"])
         lk = tk.BooleanVar(value=self.music.link.want)
-        m.add_checkbutton(label="Som nos avisos (modo trabalho)", variable=sw,
+        m.add_checkbutton(label=tr("item.snd_work"), variable=sw,
                           command=lambda: self.toggle("snd_work", sw.get()))
-        m.add_checkbutton(label="Som nos avisos (modo musica)", variable=smu,
+        m.add_checkbutton(label=tr("item.snd_music"), variable=smu,
                           command=lambda: self.toggle("snd_music", smu.get()))
-        m.add_checkbutton(label="Ableton Link (liga primeiro no Ableton)", variable=lk,
+        m.add_checkbutton(label=tr("item.link"), variable=lk,
                           command=lambda: self.toggle_link(lk.get()))
         cores = tk.Menu(m, tearoff=0)
         tv = tk.StringVar(value=self.st["theme"])
-        for key, (label, _) in THEMES.items():
-            cores.add_radiobutton(label=label, variable=tv, value=key,
+        for key in THEMES:
+            cores.add_radiobutton(label=tr("theme." + key), variable=tv, value=key,
                                   command=lambda k=key: self.toggle("theme", k))
-        m.add_cascade(label="Cor", menu=cores)
+        m.add_cascade(label=tr("item.color"), menu=cores)
         cv = tk.BooleanVar(value=self.st["cap"])
         bv = tk.BooleanVar(value=self.st["blush"])
-        m.add_checkbutton(label="Bone", variable=cv, command=lambda: self.toggle("cap", cv.get()))
-        m.add_checkbutton(label="Bochechas", variable=bv, command=lambda: self.toggle("blush", bv.get()))
+        m.add_checkbutton(label=tr("item.cap"), variable=cv, command=lambda: self.toggle("cap", cv.get()))
+        m.add_checkbutton(label=tr("item.blush"), variable=bv, command=lambda: self.toggle("blush", bv.get()))
         hv = tk.BooleanVar(value=self.st["hud"])
-        m.add_checkbutton(label="Mostrar quadrados dos Claudes", variable=hv,
+        m.add_checkbutton(label=tr("item.hud"), variable=hv,
                           command=lambda: self.toggle("hud", hv.get()))
         size = tk.Menu(m, tearoff=0)
-        for label, s in (("Pequeno", 3), ("Medio", 4), ("Grande", 5), ("Enorme", 6)):
-            size.add_command(label=label, command=lambda s=s: self.set_scale(s))
-        m.add_cascade(label="Tamanho", menu=size)
+        for s in (3, 4, 5, 6):
+            size.add_command(label=tr(f"size.{s}"), command=lambda s=s: self.set_scale(s))
+        m.add_cascade(label=tr("item.size"), menu=size)
+        lang = tk.Menu(m, tearoff=0)
+        lv = tk.StringVar(value=_LANG[0])
+        for code, name in LANGS:
+            lang.add_radiobutton(label=name, variable=lv, value=code, command=lambda c=code: self.set_lang(c))
+        m.add_cascade(label=tr("item.lang"), menu=lang)
         m.add_separator()
-        m.add_command(label="Sair", command=self.quit)
+        m.add_command(label=tr("item.quit"), command=self.quit)
         try:
             m.tk_popup(e.x_root, e.y_root)
         finally:
@@ -1088,7 +1182,12 @@ class App:
 
     def toggle_link(self, v):
         self.music.link.want = v
-        self.say("Link ligado (so a ouvir)" if v else "Link desligado", 2.5)
+        self.say(tr("link.on" if v else "link.off"), 2.5)
+        self.save_state()
+
+    def set_lang(self, code):
+        _LANG[0] = code
+        self.st["lang"] = code
         self.save_state()
 
     def set_usage_mode(self, mode):
@@ -1190,7 +1289,7 @@ class App:
     def usage_hud_key(self):
         """O que as barras do consumo mostram agora (None = escondidas)."""
         now = time.time()
-        bars = [self.usage.get(key, now) for key, _ in Usage.WINDOWS]
+        bars = [self.usage.get(key, now) for key in Usage.WINDOWS]
         mode = self.st["usage_mode"]
         if mode == "off" or not any(bars):
             return None
@@ -1312,24 +1411,24 @@ class App:
                 self.wake()
             snd = self.st["snd_music"] if self.mode == "music" else self.st["snd_work"]
             if kind == "done":
-                self.say(random.choice(DONE_MSGS).format(n=n), 6, "done")
+                self.say(random.choice(tr("done")).format(n=n), 6, "done")
                 self.set_action("thumb", 2.0)
                 if snd:
                     play(self.sd, "done")
             elif kind == "need":
-                self.say(random.choice(NEED_MSGS).format(n=n), 8, "need", urgent=True)
+                self.say(random.choice(tr("need")).format(n=n), 8, "need", urgent=True)
                 if snd:
                     play(self.sd, "need")
         for s in self.claudes.needing():
             if not s["dismissed"] and now - s["reminded"] > 120:
                 s["reminded"] = now
-                self.say(f"{s['name']} continua à tua espera", 6, "need")
+                self.say(tr("still", n=s["name"]), 6, "need")
 
     def check_usage(self, now):
         """Avisa uma vez por janela quando o consumo passa dos 80%."""
         self.usage.poll()
         warned = self.st.setdefault("usage_warned", {})
-        for key, label in Usage.WINDOWS:
+        for key in Usage.WINDOWS:
             g = self.usage.get(key, now)
             if not g or not g[1] or g[0] < Usage.WARN:
                 continue
@@ -1338,8 +1437,7 @@ class App:
                 continue
             warned[key] = reset
             self.save_state()
-            what = "das 5 horas" if key == "five_hour" else "da semana"
-            self.say(f"já usaste {pct:.0f}% {what} · reset {Usage.when(key, reset)}", 8, "need")
+            self.say(tr("warn." + key, pct=f"{pct:.0f}", when=Usage.when(key, reset)), 8, "need")
             if self.st["snd_music"] if self.mode == "music" else self.st["snd_work"]:
                 play(self.sd, "need")
 
@@ -1361,7 +1459,7 @@ class App:
         if self.claudes.busy_count():
             self.last_activity = now
         if self.asleep and m["active"]:
-            self.wake("ouvi um kick!")
+            self.wake(tr("wake.kick"))
 
         needs = any(not s["dismissed"] for s in self.claudes.needing())
         if not self.asleep and not self.action and not needs and not m["active"]:
@@ -1478,13 +1576,13 @@ class App:
                 global SHORTCUT_CREATED
                 if SHORTCUT_CREATED:
                     SHORTCUT_CREATED = False
-                    self.say("criei um atalho no ambiente de trabalho", 5)
+                    self.say(tr("shortcut"), 5)
                 self.handle_claude_events(self.claudes.poll(now), now)
                 self.check_usage(now)
                 L = self.music.link.read()
                 peers = L["peers"] if L else 0
                 if peers and not self.link_peers:
-                    self.say(f"ligado ao Ableton Link · {int(round(L['tempo']))} BPM", 4)
+                    self.say(tr("link.peers", bpm=int(round(L["tempo"]))), 4)
                 self.link_peers = peers
             self.update_life(now, m)
             self.frame(self.compute_pose(now, m))

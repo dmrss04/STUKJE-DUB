@@ -8,8 +8,6 @@
 
 It is a quiet companion: it never asks for attention, and only shows up when it has something useful to tell you.
 
-> **Note:** the app's own interface (right-click menu and speech bubbles) is currently in Portuguese. The installer comes in English and Portuguese.
-
 ## What it does
 
 | | |
@@ -19,12 +17,13 @@ It is a quiet companion: it never asks for attention, and only shows up when it 
 | **Alerts** | When a Claude finishes, it gives a thumbs up. When one needs you (a permission prompt, for example), it shows its phone and a speech bubble. |
 | **Claude usage** | Bars with your **5-hour** and **weekly** usage, always in view. It warns you once when either passes **80%**. |
 | **Personalisation** | 15 colours, a cap, cheeks and 4 sizes. The shortcut icon changes with the colour you pick. |
+| **Languages** | English and Portuguese, chosen in the menu (right-click → **Language**). |
 
-Click DUB to switch modes, drag it to move it, and **right-click** for the menu (Claudes, usage, colours, sounds, size and quit).
+Click DUB to switch modes, drag it to move it, and **right-click** for the menu (Claudes, usage, colours, sounds, size, language and quit).
 
 ## Claude usage
 
-DUB shows two bars, **5H** and **7D**. They stay green up to 80%, turn coral from there, and blink above 95%. In the menu (right-click → **Consumo no ecrã**) you choose between:
+DUB shows two bars, **5H** and **7D**. They stay green up to 80%, turn coral from there, and blink above 95%. In the menu (right-click → **On-screen usage**) you choose between:
 
 - **Small bars**: discreet, in the corner.
 - **Large bars with %**: with the percentage written out.

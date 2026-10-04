@@ -2,7 +2,7 @@
 
 A calm blob that sits in the corner of your screen and keeps you posted on your Claudes.
 
-Open it with the **DUB** shortcut on your desktop. Quit with **right-click → Sair** (Quit).
+Open it with the **DUB** shortcut on your desktop. Quit with **right-click → Quit**.
 
 ## Modes (click DUB to switch)
 
@@ -20,7 +20,7 @@ Open it with the **DUB** shortcut on your desktop. Quit with **right-click → S
 
 - Two small bars in the bottom-left corner (**5H** and **7D**). Green up to 80%, coral from there, and blinking above 95%. They turn grey if there has been no update for more than an hour.
 - Right-click shows the percentage and the reset time of each one.
-- **Consumo no ecrã** (On-screen usage, in the right-click menu) has three options: **Desligado** (Off), **Barras pequenas** (Small bars, the ones above) and **Barras grandes com %** (Large bars with %, two horizontal bars with the percentage written out). The large bars widen the window on the left, and DUB does not move.
+- **On-screen usage** (in the right-click menu) has three options: **Off**, **Small bars** (the ones above) and **Large bars with %** (two horizontal bars with the percentage written out). The large bars widen the window on the left, and DUB does not move.
 - At **80%** DUB shows a speech bubble, once per window (the 5-hour and weekly windows warn separately).
 - The data comes from the Claude Code status line: `dub_statusline.py` saves the values to `~/.dub/usage.json` and DUB only reads that file. To enable it, add this to `~/.claude/settings.json`:
   ```json
@@ -37,12 +37,16 @@ Open it with the **DUB** shortcut on your desktop. Quit with **right-click → S
 
 ## Look (right-click)
 
-- **Cor** (Colour): 15 shades.
-  - Light: Mochi, Matcha, Hojicha, Ube, Névoa, Sakura, Momo, Yuzu, Kinako, Menta and Sora.
-  - Dark: Sésamo preto, Azuki, Café and Sumi (with amber eyes).
+- **Colour**: 15 shades.
+  - Light: Mochi, Matcha, Hojicha, Ube, Névoa, Sakura, Momo, Yuzu, Kinako, Mint and Sora.
+  - Dark: Black sesame, Azuki, Coffee and Sumi (with amber eyes).
 - The **DUB** shortcut icon updates itself to match the colour and cap you pick.
-- **Boné** (Cap): on or off.
-- **Bochechas** (Cheeks): on or off (they are subtle by default, in a tone close to the body colour).
+- **Cap**: on or off.
+- **Cheeks**: on or off (they are subtle by default, in a tone close to the body colour).
 
-**Dragging** moves DUB. **Right-click** opens the Claudes, modes, sounds, size and Ableton Link.
+**Dragging** moves DUB. **Right-click** opens the Claudes, modes, sounds, size, language and Ableton Link.
 Everything is read-only and local, and your data lives in `~/.dub/`.
+
+## Language
+
+DUB comes in **English** and **Portuguese**. Pick one in the right-click menu under **Language**; it is remembered next time. It does not depend on your Windows language.
